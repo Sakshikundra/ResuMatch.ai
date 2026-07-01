@@ -1,0 +1,19 @@
+# Python Virtual Environment
+venv/
+__pycache__/
+*.pyc
+
+# Environment files
+.env
+.env.*
+
+# Large data and vector databases
+data/
+chroma_db/
+backend/chroma_db/
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
