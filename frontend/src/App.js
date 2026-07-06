@@ -8,6 +8,8 @@ const LOCATIONS = [
   { label: "🌐 Anywhere", value: null },
 ];
 
+const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:8001";
+
 function App() {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -26,7 +28,7 @@ function App() {
     if (!file) return alert("Pehle PDF select karo!");
     const formData = new FormData();
     formData.append("file", file);
-    const res = await fetch("http://localhost:8001/upload", { method: "POST", body: formData });
+    const res = await fetch(`${API_BASE_URL}/upload`, { method: "POST", body: formData });
     const data = await res.json();
     if (data.message) {
       setUploaded(true);
@@ -37,7 +39,7 @@ function App() {
   const fetchAtsScore = async () => {
     setAtsLoading(true);
     try {
-      const res = await fetch("http://localhost:8001/ats-score");
+      const res = await fetch(`${API_BASE_URL}/ats-score`);
       const data = await res.json();
       setAtsScore(data);
     } catch {
@@ -52,8 +54,8 @@ function App() {
     setMatches([]);
     try {
       const url = location
-        ? `http://localhost:8001/match?location=${encodeURIComponent(location)}`
-        : "http://localhost:8001/match";
+        ? `${API_BASE_URL}/match?location=${encodeURIComponent(location)}`
+        : `${API_BASE_URL}/match`;
       const res = await fetch(url);
       const data = await res.json();
       setMatches(data.matches);
